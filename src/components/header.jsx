@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import '../assets/main.css';
 import AppBar from "@material-ui/core/AppBar";
@@ -7,8 +7,19 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import UpdateIcon from '@material-ui/icons/Update';
+import Button from '@material-ui/core/Button';
 
-const Heder = () => {
+const renderLogoutButton = ({ menuItem }, doGoogleLogout) => {
+  return (<Button className={menuItem} onClick={doGoogleLogout}>LOGOUT</Button>);
+};
+
+const renderLogInButton = ({ menuItem }) => {
+  return (<Button className={menuItem}> <Link to="/login">
+    LOGIN
+</Link></Button>);
+};
+
+const Heder = ({ isUserLogin, doGoogleLogout }) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -24,9 +35,7 @@ const Heder = () => {
               <NavLink to="/home" className={classes.menuItem}>
                 HOME
               </NavLink>
-              <NavLink to="/login" className={classes.menuItem}>
-                LOGIN
-              </NavLink>
+              {isUserLogin ? renderLogoutButton(classes, doGoogleLogout) : renderLogInButton(classes)}
             </Typography>
           </Toolbar>
         </Container>

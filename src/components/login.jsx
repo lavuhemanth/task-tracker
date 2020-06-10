@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import Button from '@material-ui/core/Button';
 
 
-const Login = () => {
+const Login = ({ doGoogleLogin }) => {
     return (
-        <h1>Login Page</h1>
+        <div className="w-full h-full flex flex-center align-middle flex-column justify-around mt-56">
+            <Button variant="contained" onClick={doGoogleLogin}><img alt="Google Icon" src="../assets/images/gIcon.png" /> Login with Google</Button>
+        </div>
     )
 }
 
