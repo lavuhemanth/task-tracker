@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { BrowserRouter } from "react-router-dom";
+import './assets/main.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import * as firebase from 'firebase';
@@ -18,10 +19,12 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-ReactDOM.hydrate(
-  <React.StrictMode>
+ReactDOM.render(
+  // <React.StrictMode>
+  <BrowserRouter>
     <App />
-  </React.StrictMode>,
+  </BrowserRouter>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 
