@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import UpdateIcon from '@material-ui/icons/Update';
 import Button from '@material-ui/core/Button';
+import Avatar from '@material-ui/core/Avatar';
 
 const renderLogoutButton = ({ menuItem }, doGoogleLogout) => {
   return (<Button className={menuItem} onClick={doGoogleLogout}>LOGOUT</Button>);
@@ -19,7 +20,8 @@ const renderLogInButton = ({ menuItem }) => {
 </Link></Button>);
 };
 
-const Heder = ({ isUserLogin, doGoogleLogout }) => {
+const Heder = ({ isUserLogin, doGoogleLogout, user }) => {
+
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -36,6 +38,9 @@ const Heder = ({ isUserLogin, doGoogleLogout }) => {
                 HOME
               </NavLink>
               {isUserLogin ? renderLogoutButton(classes, doGoogleLogout) : renderLogInButton(classes)}
+
+              {isUserLogin ? (<Avatar alt={user.displayName} src={user.photoURL} className="mt-3" />) : ''}
+
             </Typography>
           </Toolbar>
         </Container>

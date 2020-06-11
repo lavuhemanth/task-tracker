@@ -20,7 +20,7 @@ class App extends Component {
 
   state = {
     isUserLogin: false,
-    user: [],
+    user: {},
   }
 
   componentDidMount() {
@@ -45,10 +45,10 @@ class App extends Component {
     return (
 
       <div>
-        <Header isUserLogin={this.state.isUserLogin} doGoogleLogout={this.doGoogleLogout} />
+        <Header isUserLogin={this.state.isUserLogin} doGoogleLogout={this.doGoogleLogout} user={this.state.user} />
         <Switch>
           <Route path="/login" component={() => <Login doGoogleLogin={this.doGoogleLogin} />} />
-          <Route path="/home" component={Home} />
+          <Route path="/home" component={() => <Home />} />
           <Redirect from="/" exact to="/home" />
         </Switch>
       </div>
