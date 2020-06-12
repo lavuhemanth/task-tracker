@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
+import Project from './project';
+
+import Container from '@material-ui/core/Container';
 
 class Home extends Component {
 
     render() {
-        return (<h1>Home page</h1>)
+        return (
+            <Container fixed>
+                <Project></Project>
+            </Container>
+        )
     }
 }
 
