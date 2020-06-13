@@ -3,26 +3,21 @@ import { Formik } from 'formik';
 import InputField from './common/input-field';
 import DatePicker from './common/date-picker';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { DialogContent } from '@material-ui/core';
 
-const handleOnClose = (e) => {
-    e.handleClose(e)
-}
-
 const handleOnChange = (props, e) => {
     props.setValue(props.fieldName, e)
 }
 
 const CreateProjectForm = (props) => {
-    const { open } = props;
+    const { open, handleClose } = props;
 
     return (<div>
-        <Dialog open={open} onClose={() => handleOnClose(props)} aria-labelledby="form-dialog-title">
+        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Create Project</DialogTitle>
             <Formik
                 initialValues={{
@@ -31,8 +26,8 @@ const CreateProjectForm = (props) => {
                 }}
                 validate={values => {
                     const errors = {};
-                    if (!values.taskName) {
-                        errors.taskName = 'Required';
+                    if (!values.projectName) {
+                        errors.projectName = 'Required';
                     }
                     // if (!values.projectName) {
                     //     errors.projectName = 'Required';
@@ -43,6 +38,7 @@ const CreateProjectForm = (props) => {
                     setTimeout(() => {
                         alert(JSON.stringify(values, null, 2));
                         setSubmitting(false);
+                        handleClose();
                     }, 400);
                 }}
             >
@@ -56,7 +52,6 @@ const CreateProjectForm = (props) => {
                     isSubmitting }) => (
                         <form onSubmit={handleSubmit}>
                             <DialogContent>
-
                                 <InputField type="text" id="projectName"
                                     label="Project Title"
                                     name="projectName"
@@ -66,12 +61,12 @@ const CreateProjectForm = (props) => {
                                 <DatePicker fieldName="projectDate" dateValue={values.projectDate} setValue={setFieldValue} handleDateChange={handleOnChange} />
                             </DialogContent>
                             <DialogActions>
-                                <Button onClick={() => handleOnClose(props)} color="primary">
+                                <Button onClick={handleClose} color="primary">
                                     Cancel
-          </Button>
+                                </Button>
                                 <Button type="submit" color="primary" disabled={isSubmitting}>
                                     Save
-          </Button>
+                                </Button>
                             </DialogActions>
                         </form>
                     )}

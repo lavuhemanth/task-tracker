@@ -1,10 +1,22 @@
 import React from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
+
+import { makeStyles } from "@material-ui/core/styles";
+import clsx from 'clsx';
 import '../../assets/main.css'
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        '& > div > input': {
+            padding: '14.5px 14px !important'
+        }
+    }
+}))
 
 const InputField = (props) => {
 
+    const classes = useStyles();
     const { type,
         id,
         fieldName,
@@ -16,7 +28,7 @@ const InputField = (props) => {
         <FormControl fullWidth >
 
             <TextField
-                className="min-w-full"
+                className={clsx('min-w-full', classes.root)}
                 variant="outlined"
                 type={type}
                 id={id}

@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
-import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import { withStyles } from '@material-ui/core/styles';
 
 
-const filter = createFilterOptions();
+// const filter = createFilterOptions();
+
+const styles = {
+    root: {
+        '& > div > div > input': {
+            padding: '7.5px 8px !important'
+        }
+    }
+}
 
 class AutoCompleteInput extends Component {
     constructor(props) {
@@ -14,10 +23,11 @@ class AutoCompleteInput extends Component {
     }
 
     render() {
-        const { options, fieldName, handleChange, value } = this.props
+        const { options, fieldName, handleChange, value, classes } = this.props
         return (
             <Autocomplete
                 id="combo-box-demo"
+                className={classes.root}
                 options={options}
                 name={fieldName}
                 onChange={handleChange}
@@ -33,4 +43,4 @@ class AutoCompleteInput extends Component {
     }
 }
 
-export default AutoCompleteInput;
+export default withStyles(styles)(AutoCompleteInput);

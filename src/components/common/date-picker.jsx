@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 
 import DateFnsUtils from '@date-io/date-fns';
+import { withStyles } from '@material-ui/core/styles';
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 
+import '../../assets/main.css';
 
-
+const styles = {
+    root: {
+        '& > div > input': {
+            padding: '14.5px 14px !important'
+        }
+    }
+}
 
 class DatePicker extends Component {
 
@@ -23,10 +31,11 @@ class DatePicker extends Component {
     }
 
     render() {
-        const { dateValue, fieldName } = this.props
+        const { dateValue, fieldName, classes } = this.props
         return (
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
+                    className={classes.root}
                     margin="normal"
                     id="date-picker-dialog"
                     label="Date picker dialog"
@@ -45,4 +54,4 @@ class DatePicker extends Component {
     }
 }
 
-export default DatePicker;
+export default withStyles(styles)(DatePicker);

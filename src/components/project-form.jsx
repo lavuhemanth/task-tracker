@@ -143,25 +143,23 @@ class ProjectForm extends Component {
     }
 
     handleClickOpen(props) {
-        const obj = {
+        const updateState = {
             ...props,
             open: true
         }
         this.setState({
-            ...obj
+            ...updateState
         });
-        console.log("After updating state :; ", this.state)
     };
 
-    handleClose(props) {
-        const obj = {
-            ...props,
+    handleClose() {
+        const updateState = {
+            ...this.state,
             open: false
         }
         this.setState({
-            ...obj
+            ...updateState,
         });
-        console.log("After updating state :; ", this.state)
     };
 
     handleOnChange(props, e) {
@@ -214,7 +212,7 @@ class ProjectForm extends Component {
                                             onBlur={handleBlur} />
                                     </Grid>
                                     <Grid item xs container justify="flex-end">
-                                        {!top100Films.length ? (<AutoCompleteInput options={top100Films} fieldName="projectName" value={values.projectName} handleChange={handleChange} />) :
+                                        {top100Films.length ? (<AutoCompleteInput options={top100Films} fieldName="projectName" value={values.projectName} handleChange={handleChange} />) :
                                             (<Button color="primary" type="button" startIcon={<AddCircleOutlineIcon />} onClick={() => this.handleClickOpen(this.state)}>
                                                 Project
                                             </Button>)}
@@ -245,7 +243,7 @@ class ProjectForm extends Component {
                         )}
 
                 </Formik>
-                <CreateProjectForm {...this.state} handleClose={this.handleClose} />
+                <CreateProjectForm {...this.state} handleClose={this.handleClose.bind(this)} />
             </div>
         )
     }

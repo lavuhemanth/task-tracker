@@ -4,7 +4,16 @@ import {
     MuiPickersUtilsProvider,
     KeyboardTimePicker
 } from '@material-ui/pickers';
+import { withStyles } from '@material-ui/core/styles';
+import '../../assets/main.css';
 
+const styles = {
+    root: {
+        '& > div > input': {
+            padding: '14.5px 14px !important'
+        }
+    }
+}
 class TimePicker extends Component {
 
     constructor(props) {
@@ -21,6 +30,7 @@ class TimePicker extends Component {
         const { fieldName, dateValue } = this.props
         return (<MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardTimePicker
+                className={this.props.classes.root}
                 margin="normal"
                 variant="inline"
                 inputVariant="outlined"
@@ -37,4 +47,4 @@ class TimePicker extends Component {
     }
 }
 
-export default TimePicker;
+export default withStyles(styles)(TimePicker);
