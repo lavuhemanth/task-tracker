@@ -34,7 +34,7 @@ const InputField = (props) => {
                 id={id}
                 name={fieldName}
                 label={label}
-                value={value}
+                value={value || ''}
                 onChange={handleChange}
                 onBlur={handleBlur}
             />

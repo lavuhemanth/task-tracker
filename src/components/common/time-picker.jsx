@@ -37,7 +37,7 @@ class TimePicker extends Component {
                 id="time-picker"
                 label="Time picker"
                 name={fieldName}
-                value={dateValue}
+                value={dateValue || new Date().toISOString}
                 onChange={(e) => this.handleDateOnChange(this.props, e)}
                 KeyboardButtonProps={{
                     'aria-label': 'change time',

@@ -43,7 +43,7 @@ class DatePicker extends Component {
                     variant="inline"
                     inputVariant="outlined"
                     name={fieldName}
-                    value={dateValue}
+                    value={dateValue || ''}
                     onChange={(e) => this.handleDateOnChange(this.props, e)}
                     KeyboardButtonProps={{
                         'aria-label': 'change date',

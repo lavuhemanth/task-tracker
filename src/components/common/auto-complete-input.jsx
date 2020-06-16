@@ -4,7 +4,6 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { withStyles } from '@material-ui/core/styles';
 
 
-// const filter = createFilterOptions();
 
 const styles = {
     root: {
@@ -18,26 +17,32 @@ class AutoCompleteInput extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ...props
+            ...props,
+
         }
     }
 
+    handleOnChange(e) {
+        this.props.handleChange(this.props, e);
+    }
+
     render() {
-        const { options, fieldName, handleChange, value, classes } = this.props
+        const { options, fieldName, fieldValue, classes } = this.props
         return (
             <Autocomplete
                 id="combo-box-demo"
                 className={classes.root}
                 options={options}
                 name={fieldName}
-                onChange={handleChange}
+                onChange={(e) => this.handleOnChange(e)}
                 selectOnFocus
                 clearOnBlur
                 handleHomeEndKeys
-                value={value}
-                getOptionLabel={(option) => option.title}
+                value={fieldValue}
+                getOptionLabel={option => typeof option === 'string' ? option : option.title}
                 style={{ width: 300 }}
-                renderInput={(params) => <TextField {...params} variant="outlined" />}
+                renderInput={(params) =>
+                    <TextField {...params} variant="outlined" />}
             />
         );
     }

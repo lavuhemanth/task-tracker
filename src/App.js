@@ -6,7 +6,6 @@ import {
   Redirect,
   // Link
 } from "react-router-dom";
-import * as firebase from 'firebase';
 import { withRouter } from 'react-router-dom';
 
 import Header from './components/header';
@@ -14,6 +13,8 @@ import Login from './components/login';
 import Home from './components/home';
 
 import './App.css';
+import { firebase } from './auth/firebase-config';
+
 
 class App extends Component {
 
@@ -35,23 +36,22 @@ class App extends Component {
   }
   provider = new firebase.auth.GoogleAuthProvider();
 
+
   doGoogleLogin = () => firebase.auth().signInWithPopup(this.provider);
 
   doGoogleLogout = () => firebase.auth().signOut();
-  ;
+
 
   render() {
-
     return (
-
-      <div>
+      <>
         <Header isUserLogin={this.state.isUserLogin} doGoogleLogout={this.doGoogleLogout} user={this.state.user} />
         <Switch>
           <Route path="/login" component={() => <Login doGoogleLogin={this.doGoogleLogin} />} />
           <Route path="/home" component={() => <Home />} />
           <Redirect from="/" exact to="/home" />
         </Switch>
-      </div>
+      </>
     );
   }
 

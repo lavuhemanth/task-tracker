@@ -9,11 +9,14 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { DialogContent } from '@material-ui/core';
 
+import { database } from '../auth/firebase-config';
+
 const handleOnChange = (props, e) => {
     props.setValue(props.fieldName, e)
 }
 
 const CreateProjectForm = (props) => {
+
     const { open, handleClose } = props;
 
     return (<div>
@@ -21,22 +24,32 @@ const CreateProjectForm = (props) => {
             <DialogTitle id="form-dialog-title">Create Project</DialogTitle>
             <Formik
                 initialValues={{
-                    projectName: '',
+                    title: '',
                     projectDate: new Date().toISOString()
                 }}
                 validate={values => {
                     const errors = {};
-                    if (!values.projectName) {
-                        errors.projectName = 'Required';
+                    if (!values.title) {
+                        errors.title = 'Required';
                     }
-                    // if (!values.projectName) {
-                    //     errors.projectName = 'Required';
+                    // if (!values.title) {
+                    //     errors.title = 'Required';
                     // }
                     return errors;
                 }}
                 onSubmit={(values, { setSubmitting }) => {
                     setTimeout(() => {
                         alert(JSON.stringify(values, null, 2));
+                        let id = Date.now();
+                        let project = {
+                            id: id,
+                            ...values
+                        }
+                        let projectRef = database.ref('/').child('projects');
+
+                        projectRef.push({
+                            ...project
+                        })
                         setSubmitting(false);
                         handleClose();
                     }, 400);
@@ -52,10 +65,10 @@ const CreateProjectForm = (props) => {
                     isSubmitting }) => (
                         <form onSubmit={handleSubmit}>
                             <DialogContent>
-                                <InputField type="text" id="projectName"
+                                <InputField type="text" id="title"
                                     label="Project Title"
-                                    name="projectName"
-                                    value={values.projectName}
+                                    name="title"
+                                    value={values.title}
                                     handleChange={handleChange}
                                     onBlur={handleBlur} />
                                 <DatePicker fieldName="projectDate" dateValue={values.projectDate} setValue={setFieldValue} handleDateChange={handleOnChange} />
